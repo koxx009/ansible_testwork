@@ -1,0 +1,8 @@
+- name: Install PostgreSQL
+  import_playbook: install-postgres.yml
+
+- name: Install Docker and start Nginx with default site
+  import_playbook: start-nginx.yml
+
+- name: Create users with key-auth
+  import_playbook: create_users.yml

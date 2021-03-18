@@ -1,0 +1,29 @@
+- name : Create postgres with test db
+  hosts: postgres
+  become: true
+  roles:
+    - geerlingguy.postgresql
+  tasks:
+    - name: Download sample db
+      get_url:
+        url: "{{ sample_db_link }}"
+        dest: "{{ dump_dest_dir }}/dump.zip"
+      register: downloaded_dump
+    - name: Install unzip
+      package:
+        name: unzip
+        state: present
+    - name:
+      unarchive:
+          src: "{{ downloaded_dump.dest }}"
+          dest: "{{ dump_dest_dir }}"
+          owner: postgres
+          group: postgres
+          remote_src: yes
+    - name: import database demo - {{ dump_name }}
+      become_user: postgres
+      postgresql_db:
+        name: demo
+        state: restore
+        target: "{{  dump_dest_dir  }}/{{ dump_name }}"
+      tags: import_dump

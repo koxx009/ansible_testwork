@@ -1,0 +1,14 @@
+server {
+    listen       80;
+
+    server_name  {{ env }}-{{ ansible_hostname }};
+
+    access_log  {{ container_path_logs }}/{{ env }}-{{ ansible_hostname }}-access.log;
+    error_log   {{ container_path_logs }}/{{ env }}-{{ ansible_hostname }}-error.log;
+
+    location / {
+        root  {{ container_path_static }}/;
+        index {{ env }}-{{ ansible_hostname }}.html;
+        try_files $uri $uri/ /;
+    }
+}

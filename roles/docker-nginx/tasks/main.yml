@@ -1,0 +1,44 @@
+---
+# tasks file for docker-nginx
+- name: Create directories for {{ container_name }} - conf.d
+  file:
+    state: directory
+    path: /opt/{{ container_name }}/conf.d
+  register: dir_conf
+
+- name: Create directories for {{ container_name }} - static
+  file:
+    state: directory
+    path: "/opt/{{ container_name }}/static"
+  register: dir_static
+
+- name: Create directories for {{ container_name }} - logs
+  file:
+    state: directory
+    path: "/opt/{{ container_name }}/logs"
+  register: dir_logs
+
+- name: "Create config for nginx site {{ env }}-{{ ansible_hostname }}.conf"
+  template:
+      src: site-config.j2 
+      dest: "{{ dir_conf.path }}/{{ env }}-{{ ansible_hostname }}.conf"
+
+- name: "Create html site {{ env }}-{{ ansible_hostname }}"
+  template:
+      src: site.j2 
+      dest: "{{ dir_static.path }}/{{ env }}-{{ ansible_hostname }}.html"
+
+- name: Create {{ container_name }} container
+  docker_container:
+    name: "{{ container_name }}"
+    image: "{{ image_name }}"
+    state: started
+    restart: yes
+    volumes:
+        - "{{ dir_logs.path }}:{{ container_path_logs }}"
+        - "{{ dir_conf.path }}:{{ container_path_conf }}"
+        - "{{ dir_static.path }}:{{ container_path_static }}"
+    ports:
+      - 80:80
+
+

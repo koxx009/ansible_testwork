@@ -1,0 +1,21 @@
+---
+- name: Start nginx in docker with test site
+  hosts: nginx
+  become: true
+  tasks:
+    - name: Install Docker
+      include_role: 
+        name: geerlingguy.docker
+    - name: Install Python3
+      package:
+        state: present
+        name: "{{ item }}"
+      with_items: "{{ python3_packages }}"
+      vars:
+        - python3_packages: ["python3", "python3-pip"]
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+    - name: Nginx configure and start
+      include_role: 
+        name: docker-nginx

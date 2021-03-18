@@ -1,0 +1,6 @@
+postgresql_databases:
+  - name: demo
+
+sample_db_link: https://edu.postgrespro.ru/demo-small.zip
+dump_name: demo-small-20170815.sql
+dump_dest_dir: /tmp

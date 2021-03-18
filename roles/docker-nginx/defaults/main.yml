@@ -1,0 +1,8 @@
+---
+# defaults file for docker-nginx
+env: dev
+container_name: nginx
+image_name: nginx:latest
+container_path_logs: /logs
+container_path_conf: /etc/nginx/conf.d
+container_path_static: /etc/nginx/static

@@ -1,0 +1,9 @@
+env: stage
+# docker_edition: 'ee'
+users:
+  - username: fred
+    ssh_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICn2jLmrDKYwt1zouEjyAwdItBJ2A2MyULwLr1IbF5rz"
+  - username: mark
+    ssh_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBQh0DIHOIs4ZBok6F8I2JmZGcdu6NPS8R7cY5ndQaID"
+  - username: adam
+    ssh_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPY89d+z8ZjNPuqNUJ/Ny3X4PxDGz1LAWzSeMWBD1iwG"

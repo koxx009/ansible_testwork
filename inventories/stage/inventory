@@ -1,0 +1,11 @@
+[postgres]
+postgres1 ansible_host=1.1.1.1
+
+[nginx:children]
+centos8
+ubuntu1804
+
+[centos8]
+nginxhost2 ansible_host=2.2.2.2
+[ubuntu1804]
+nginxhost1 ansible_host=3.3.3.3
